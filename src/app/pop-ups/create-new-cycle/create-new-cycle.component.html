@@ -1,0 +1,80 @@
+<p-dialog class="flex flex-grow-0" header="Create new cycle" [modal]="true" [(visible)]="show" [draggable]="false"
+    [resizable]="false" [closeOnEscape]="false" (onHide)="setHide()">
+
+    <div class="w-full p-3">
+        <div><label for="epr_jira_filter" class="block">EPR Jira Filter</label></div>
+        <input type="text" pInputText [(ngModel)]="eprJiraFilterInput" style="width: 1150px" />
+    </div>
+    <br>
+    <div class="w-full p-3">
+        <label class="block">Additional EPRs</label>
+        <p-chips class="p-fluid new-cycle-chips" [(ngModel)]="chipsValues" separator=","
+            placeholder="List of EPRs separated by comma" [allowDuplicate]="false" [showClear]="true" [addOnTab]="true"
+            [addOnBlur]="true">
+        </p-chips>
+    </div>
+
+    <div class="p-fluid p-3">
+        <h6>DOORS Modules</h6>
+        <div class="flex gap-8 p-2">
+            <div class="flex flex-column">
+                <label for="SNV_revision" class="block">Location</label>
+                <p-dropdown id="SNV_revision" [options]="modules" [(ngModel)]="selectedLocation" optionLabel="location"
+                    optionValue="location" class="p-fluid"></p-dropdown>
+            </div>
+
+            <div class="flex flex-column flex-grow-1 ">
+                <label for="SNV_revision" class="block">Baseline</label>
+                <p-dropdown id="SNV_revision" [options]="modules" [(ngModel)]="selectedBaseline" optionLabel="baseline"
+                    optionValue="baseline" class="p-fluid"></p-dropdown>
+            </div>
+            <br>
+            <div class="flex align-items-end">
+                <button type="button" pButton autofocus label="Add" [disabled]="isEmpty()"
+                    (click)="addRow({location: selectedLocation, baseline: selectedBaseline})"></button>
+            </div>
+        </div>
+
+        <div class="flex">
+            <p-table #myTab [value]="tableData">
+                <ng-template pTemplate="body" let-module>
+                    <tr>
+                        <td style="width: 570px;">
+                            {{ module.location }}
+                        </td>
+                        <td style="width: 370px;">
+                            {{ module.baseline }}
+                        </td>
+                        <td style="float: right;">
+                            <button type="button" pButton pRipple autofocus icon="pi pi-trash" class="p-button-danger"
+                                (click)="removeRow(module.location)"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage" let-columns>
+                    <tr>
+                        <td class="font-light	text-400 text-center" style="width: 1000px;">
+                            No DOORS Modules found
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+
+    <div class="w-full p-3">
+        <div class="flex justify-content-center w-full">
+
+            <p class="p-2 font-italic flex w-6">
+                Careful!! You will not be able to edit the list of modules
+                and
+                baselines after creating the cycle (except by asking us to change the database directly)
+            </p>
+        </div>
+    </div>
+
+    <div class="w-full p-3">
+        <button type="button" pButton autofocus label="Create" style="float: right;"
+            [disabled]=true></button>
+    </div>
+</p-dialog>

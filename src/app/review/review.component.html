@@ -1,0 +1,132 @@
+<h5>Review Record</h5>
+<div class="drop-btn">
+    <div class="btn-space">
+        <p-dropdown [options]="review_records" [(ngModel)]="selectedRRCode" optionLabel="name"
+            placeholder="Select a review record">
+        </p-dropdown>
+    </div>
+    <div class="btn-space ">
+        <p-button label="Add Review Record" (click)="showAddReviewRecord()"></p-button>
+        <app-add-review-record [show]="displayAddReviewRecord" (hide)="hideAddReviewRecord($event)"></app-add-review-record>
+    </div>
+</div>
+<h5>Cycle</h5>
+<div class="drop-btn">
+    <div class="btn-space ">
+        <p-dropdown [options]="cycles" [(ngModel)]="selectedCycle" optionLabel="name" optionValue="code"
+            placeholder="Select a cycle">
+        </p-dropdown>
+    </div>
+    <div class="btn-space ">
+        <p-button label="Create New Cycle" (click)="showNewCycle()"></p-button>
+        <app-create-new-cycle [show]="displayNewCycle" (hide)="hideNewCycle($event)"></app-create-new-cycle>
+    </div>
+</div>
+<hr style="color: rgb(246, 246, 246);">
+<h5>DOORS Modules
+    <div class="multi-btn">
+        <p-button label="Generate Report" [disabled]="true"></p-button>
+        <div class="btn-space ">
+            <p-button label="Close Cycle" [disabled]="true"></p-button>
+        </div>
+        <div class="btn-space ">
+            <p-button label="Recompute" [disabled]="true"></p-button>
+        </div>
+        <div class="btn-space ">
+            <p-button label="Edit Jira Filter" [disabled]="true"></p-button>
+        </div>
+        <div class="btn-space">
+            <p-button label="Edit VC Fields" [disabled]="true"></p-button>
+        </div>
+    </div>
+</h5>
+<p-table [value]="doors_modules" [tableStyle]="{'max-width': '50rem'}">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Module Full Path</th>
+            <th>Baseline</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product>
+        <tr>
+            <td>{{product.full_path}}</td>
+            <td>{{product.baseline}}</td>
+        </tr>
+    </ng-template>
+</p-table>
+<div style="float: right;">
+    <h5>
+        Last Recompute done at: 2024-01-19 01:41 UTC-3<p></p>
+        ***************************************************************************<p></p>
+        *************************************************************************************
+    </h5>
+</div>
+<h5>Jira Filter</h5>
+<p-chip label="******"></p-chip>
+<h5>EPRs visited by last Recompute</h5>
+<div class="flex align-items-center">
+    <p-chip *ngFor="let epr of eprs_visited_by_last_recompute" class="chip-space" [label]="epr">
+    </p-chip>
+</div>
+<h5>Test Files</h5>
+<p-table [value]="test_files" [tableStyle]="{'min-width': '50rem'}">
+    <ng-template pTemplate="header">
+        <tr>
+            <th class="p-fluid" style="width: 250px; max-width: 250px;">VC</th>
+            <th>Component Folder</th>
+            <th>Is in this cycle?</th>
+            <th>SVN Revision on Last Recompute</th>
+            <th>Who Last Reviewed in this Cycle?</th>
+            <th>Needs Review?</th>
+            <th>Review Reason Summary</th>
+            <th>Applicability</th>
+            <th class="p-fluid" style="width: 250px; max-width: 250px;">Auxiliar Files</th>
+            <th>Needs Evidence</th>
+            <th>Review</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product>
+        <tr>
+            <td>{{product.vc}}</td>
+            <td>{{product.component_folder}}</td>
+            <td>{{product.in_this_cycle}}</td>
+            <td>{{product.svn_revision_on_last_recompute}}</td>
+            <td>{{product.reviewer}}</td>
+            <td>{{product.needs_review}}</td>
+            <td>
+                <div *ngFor="let reason of product.review_reason">{{reason}}</div>
+            </td>
+            <td>{{product.aplicability}}</td>
+            <td>
+                <div *ngFor="let af of product.auxiliar_files">{{af}}
+                    <br><br><br>
+                </div>
+            </td>
+            <td>{{product.needs_evidence}}</td>
+            <td>
+                <p-toggleButton onLabel="Reviewed" offLabel="!Reviewed" [(ngModel)]="review_flag" [disabled]="true">
+                </p-toggleButton>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+<h5>Auxiliar Files</h5>
+<p-table [value]="auxiliar_files" [tableStyle]="{'min-width': '50rem'}">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Auxiliar File</th>
+            <th>Current Revision</th>
+            <th>VCs</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product>
+        <tr>
+            <td>{{product.name}}</td>
+            <td>{{product.current_revision}}</td>
+            <td>
+                <div *ngFor="let vc of product.vcs">{{vc}}
+                </div>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

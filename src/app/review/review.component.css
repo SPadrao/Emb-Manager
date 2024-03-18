@@ -1,0 +1,19 @@
+.chip-space {
+    margin-right: 10px; 
+}
+
+.drop-btn {
+    display: flex;
+    align-items: center;
+    margin-left: -1rem; 
+}
+
+.btn-space{
+    margin-left: 1rem;
+}
+  
+.multi-btn{
+    display: flex;
+    justify-content: space-between;
+    float: right;
+}

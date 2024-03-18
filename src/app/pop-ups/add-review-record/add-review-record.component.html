@@ -1,0 +1,10 @@
+<p-dialog header="Add Review Record" [modal]="true" [(visible)]="show" [draggable]="false" [resizable]="false" [closeOnEscape]="false" (onHide)="setHide()">
+  <div>
+    <div><label for="reviewRecordIn" class="block">Jira Issue ID</label></div>
+    <input id="reviewRecordIn" type="text" pInputText [(ngModel)]="reviewRecordInput" size="60 " />
+  </div>
+<br>
+  <div>
+    <button type="button" pButton autofocus label="Create" style="float: right;" [disabled]="true"></button>
+  </div>
+</p-dialog>
