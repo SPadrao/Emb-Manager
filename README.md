@@ -1,5 +1,6 @@
 # EmbManager
 
+A hardcoded example of the tools I used to develop in my internship. It's used to manage files from the embedded systems.
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.2.3.
 
 ## Development server
